@@ -18,7 +18,7 @@ for (let file of files) { // require each file and define corresponding route fo
     Page && routes.get(`/${name}`, async (req, res) => {
         const props = await getInitialProps(Page); /* Extend them props with any data you need here */
         res.send(ReactDOMServer.renderToString((
-            <Document>
+            <Document serverData={props}>
                 <Layout {...props}> {/* If you need custom layout for Page just handle it individually in a loop */}
                     <Page {...props}/>
                 </Layout>

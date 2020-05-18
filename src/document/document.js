@@ -1,8 +1,9 @@
 import React from 'react';
 
-class Document extends React.Component {
-    render() {
-        return <html>
+const Document = (props) => {
+    const {serverData} = props;
+    return (
+        <html>
         <head>
             <title>Isomorphic skeleton</title>
             <meta name="description" content=""/>
@@ -11,13 +12,13 @@ class Document extends React.Component {
             <base href={'/'}/>
         </head>
         <body>
-        {this.props.children}
-        {/*<script*/}
-        {/*    dangerouslySetInnerHTML={{__html: 'var SERVER_DATA = ' + JSON.stringify(SERVER_DATA)}}/>*/}
+        {props.children}
+        <script
+            dangerouslySetInnerHTML={{__html: 'var SERVER_DATA = ' + JSON.stringify(serverData)}}/>
         {/*<script src="/client.js" type='text/javascript'/>*/}
         </body>
         </html>
-    }
-}
+    )
+};
 
 export default Document;
