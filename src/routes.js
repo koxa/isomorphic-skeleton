@@ -10,16 +10,17 @@ const routes = express.Router();
 
 
 /** DEFINE PAGES ROUTES **/
-const files = fs.readdirSync(pagesDir);
-for (let file of files) {
-    const path = file.split('.')[0];
-    const Page = require(`${pagesDir}/${path}`).default;
-    Page && routes.get(`/${path}`, async (req, res) => {
-        const props = await getInitialProps(Page);
+const files = fs.readdirSync(pagesDir); // read all files from 'pages' folder
+for (let file of files) { // require each file and define corresponding route for it
+    let name = file.split('.')[0]; // get rid of extension
+    name = name === 'index' ? '' : name; // index is home page '/'
+    const Page = require(`${pagesDir}/${file}`).default;
+    Page && routes.get(`/${name}`, async (req, res) => {
+        const props = await getInitialProps(Page); /* Extend them props with any data you need here */
         res.send(ReactDOMServer.renderToString((
             <Document>
-                <Layout {...props}> {/* Extend them props with any data you need */}
-                    <Page {...props}/> {/* Extend them props with any data you need */}
+                <Layout {...props}> {/* If you need custom layout for Page just handle it individually in a loop */}
+                    <Page {...props}/>
                 </Layout>
             </Document>
         )));

@@ -5,9 +5,10 @@ const routes = require('./src/routes.js').default;
 
 const app = express();
 
-/** DEFINE STATIC FOLDER PATH**/
+/** DEFINE STATIC FOLDER PATH **/
 express.static('static');
 
+/** HANDLE ALL ROUTES **/
 app.use('/', routes);
 
 http.createServer(app).listen(3000, "0.0.0.0");

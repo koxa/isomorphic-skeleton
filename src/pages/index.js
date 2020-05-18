@@ -1,3 +1,5 @@
+import React from 'react';
+
 const IndexPage = (props) => {
     const {hui} = props;
     return (
