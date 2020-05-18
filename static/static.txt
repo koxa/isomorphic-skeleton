@@ -1,0 +1,2 @@
+This is static text file
+Please test static by fetching this file via /static.txt
