@@ -1,14 +1,12 @@
 import React from 'react';
+import Menu from "../components/menu/menu";
 
 const IndexPage = (props) => {
     const {hui} = props;
     return (
         <div>
-            <ul>
-                <li><a href={'/about'}>About</a></li>
-                <li><a href={'/test'}>Test</a></li>
-            </ul>
-            <h2>Hello World from Home Page!</h2>
+            <Menu/>
+            <h1>Hello World from Home Page!</h1>
             <p>Props: {hui}</p>
         </div>
     )
