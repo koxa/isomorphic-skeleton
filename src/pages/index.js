@@ -4,7 +4,7 @@ import Menu from "../components/menu/menu";
 const IndexPage = (props) => {
     const {hui} = props;
     return (
-        <div>
+        <div className={'page index-page'}>
             <Menu/>
             <h1>Hello World from Home Page!</h1>
             <p>Props: {hui}</p>

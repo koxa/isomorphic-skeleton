@@ -6,7 +6,7 @@ import ReactDOMServer from 'react-dom/server';
 
 var fs = require('fs');
 const pagesDir = __dirname + "/pages";
-const routes = express.Router();
+const server = express.Router();
 
 
 /** DEFINE PAGES ROUTES **/
@@ -15,13 +15,11 @@ for (let file of files) { // require each file and define corresponding route fo
     let name = file.split('.')[0]; // get rid of extension
     name = name === 'index' ? '' : name; // index is home page '/'
     const Page = require(`${pagesDir}/${file}`).default;
-    Page && routes.get(`/${name}`, async (req, res) => {
+    Page && server.get(`/${name}`, async (req, res) => {
         const props = await getInitialProps(Page); /* Extend them props with any data you need here */
         res.send(ReactDOMServer.renderToString((
-            <Document serverData={props}>
-                <Layout {...props}> {/* If you need custom layout for Page just handle it individually in a loop */}
-                    <Page {...props}/>
-                </Layout>
+            <Document serverData={props}>{/* MAKE SURE THERE IS NO EMPTY SPACES TO AVOID REACT WARNING*/}
+                <Layout {...props}><Page {...props}/></Layout>{/* If you need custom layout for Page just handle it individually in a loop */}
             </Document>
         )));
     });
@@ -45,5 +43,5 @@ async function getInitialProps(Page) {
     return props;
 }
 
-export default routes;
+export default server;
 

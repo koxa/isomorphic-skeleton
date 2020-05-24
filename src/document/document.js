@@ -12,10 +12,10 @@ const Document = (props) => {
             <base href={'/'}/>
         </head>
         <body>
-        {props.children}
+        <div id={'layout-mount'}>{props.children}</div>
         <script
             dangerouslySetInnerHTML={{__html: 'var SERVER_DATA = ' + JSON.stringify(serverData)}}/>
-        {/*<script src="/client.js" type='text/javascript'/>*/}
+        <script src="/client.js" type='text/javascript'/>
         </body>
         </html>
     )

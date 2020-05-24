@@ -2,7 +2,7 @@ import React from 'react';
 
 class Layout extends React.Component {
     render() {
-        return <div className={'layout'}>{this.props.children}</div>
+        return <div className={'layout'} id={'page-mount'}>{this.props.children}</div>
     }
 }
 

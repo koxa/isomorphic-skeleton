@@ -3,7 +3,7 @@ import Menu from "../components/menu/menu";
 
 const AboutPage = (props) => {
     return (
-        <div>
+        <div className={'page about-page'}>
             <Menu/>
             <h1>About Page</h1>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut nec ex mauris. Praesent luctus vulputate

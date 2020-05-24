@@ -3,7 +3,7 @@ import Menu from "../components/menu/menu";
 
 const ContactForm = (props) => {
     return (
-        <div>
+        <div class='page contact-form-page'>
             <Menu/>
             <h1>Hello World from Contact Page</h1>
             <form method={'POST'}>
