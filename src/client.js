@@ -38,9 +38,12 @@ const onLinkClick = async (e) => {
     const link = e.currentTarget;
     const pathname = link.pathname;
     const Page = getPage(pathname);
-    const data = await getInitialProps(Page);
-    hydratePage(Page, data);
-    setupLinks();
+    if (Page) {
+        history.pushState({}, '', pathname);
+        const data = await getInitialProps(Page);
+        hydratePage(Page, data);
+        setupLinks();
+    }
 };
 const setupLinks = () => {
     const links = document.getElementsByTagName('a');
@@ -49,7 +52,16 @@ const setupLinks = () => {
     }
 };
 
+const renderPage = () => {
+    const Page = getPage(window.location.pathname);
+    hydratePage(Page, window.SERVER_DATA || {});
+    setupLinks();
+};
+
+window.onpopstate = function(event) {
+    console.log(`location: ${document.location}, state: ${JSON.stringify(event.state)}`);
+    renderPage();
+};
+
 /** HYDRATE PAGE ON INITIAL LOAD AND SETUP LINKS **/
-const Page = getPage(window.location.pathname, Pages);
-hydratePage(Page, window.SERVER_DATA || {});
-setupLinks();
+renderPage();
