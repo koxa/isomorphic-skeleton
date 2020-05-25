@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-// import AboutPage from "./pages/about";
-// import IndexPage from "./pages";
 import {getInitialProps} from "./utils";
 
 const Pages = {};
 const PagesToRequire = require.context('./pages/', true, /\.js$/).keys();
-console.log('GOT PagesToRequire', PagesToRequire);
-for(let Page of PagesToRequire) {
+for (let Page of PagesToRequire) {
     Page = Page.substr(2);
-    console.log('requireing', './pages/' + Page);
     Pages[Page] = require('./pages/' + Page);
 }
-console.log('got PAGEs', Pages);
-
 
 /** DEFINE REQUIRED FUNCTIONS **/
 
@@ -22,7 +16,6 @@ const hydratePage = (Page, data) => {
 };
 const getPage = (pathname) => {
     let Page;
-    console.log('GET PAGE', pathname, 'FROM PAGES:', Pages);
     switch (pathname) {
         case '/':
             Page = Pages['index.js'].default;
@@ -52,16 +45,16 @@ const setupLinks = () => {
     }
 };
 
-const renderPage = () => {
+const initPage = () => {
     const Page = getPage(window.location.pathname);
     hydratePage(Page, window.SERVER_DATA || {});
     setupLinks();
 };
 
-window.onpopstate = function(event) {
+window.onpopstate = function (event) {
     console.log(`location: ${document.location}, state: ${JSON.stringify(event.state)}`);
-    renderPage();
+    initPage();
 };
 
-/** HYDRATE PAGE ON INITIAL LOAD AND SETUP LINKS **/
-renderPage();
+/** INITIALIZE PAGE **/
+initPage();
