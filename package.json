@@ -6,7 +6,8 @@
   "type": "commonjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "npx nodemon"
+    "server": "npx nodemon",
+    "client": "npx webpack --watch"
   },
   "repository": {
     "type": "git",

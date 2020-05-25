@@ -10,7 +10,7 @@ module.exports = [{
         client: './src/client.js'
     },
     // output: {
-    //     path: __dirname + '/public',
+    //     path: __dirname + '/dist',
     //     filename: '[name].js'
     // },
     module: {
@@ -26,7 +26,7 @@ module.exports = [{
             // }
         ]
     },
-    // devtool: 'eval-cheap-module-source-map',
+    devtool: 'eval-source-map'
     // plugins: [
     //     new MiniCssExtractPlugin(),
     //     // To strip all locales except “en”
