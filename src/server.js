@@ -18,11 +18,19 @@ for (let file of files) { // require each file and define corresponding route fo
     const Page = require(`${pagesDir}/${file}`).default;
     Page && server.get(`/${name}`, async (req, res) => {
         const props = await getInitialProps(Page); /* Extend them props with any data you need here */
-        res.send(ReactDOMServer.renderToString((
-            <Document serverData={props}>{/* MAKE SURE THERE IS NO EMPTY SPACES TO AVOID REACT WARNING*/}
-                <Layout {...props}><Page {...props}/></Layout>{/* If you need custom layout for Page just handle it individually in a loop */}
-            </Document>
-        )));
+        // res.send(ReactDOMServer.renderToNodeStream((
+        //     <Document serverData={props}>{/* MAKE SURE THERE IS NO EMPTY SPACES TO AVOID REACT WARNING*/}
+        //         <Layout {...props}><Page {...props}/></Layout>{/* If you need custom layout for Page just handle it individually in a loop */}
+        //     </Document>
+        // )));
+        res.write("<!DOCTYPE html><html><head><title>My Page</title></head><body>");
+        res.write("<div id='content'>");
+        const stream = ReactDOMServer.renderToNodeStream(<Layout {...props}><Page {...props}/></Layout>);
+        stream.pipe(res, { end: false });
+        stream.on('end', () => {
+            res.write("</div></body></html>");
+            res.end();
+        });
     });
 }
 
